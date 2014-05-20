@@ -185,8 +185,8 @@ class PrestaShopWebservice
 	{
 		if ($response != '')
 		{
-			libxml_use_internal_errors(true);
-			$xml = simplexml_load_string($response);
+			libxml_use_internal_errors(true, null, LIBXML_NOCDATA);
+			$xml = simplexml_load_string($response,'SimpleXMLElement', LIBXML_NOCDATA);
 			if (libxml_get_errors())
 			{
 				$msg = var_export(libxml_get_errors(), true);
@@ -264,7 +264,7 @@ class PrestaShopWebservice
 			if (isset($options['id']))
 				$url .= '/'.$options['id'];
 				
-			$params = array('filter', 'display', 'sort', 'limit');
+			$params = array('filter', 'display', 'sort', 'limit', 'id_shop')
 			foreach ($params as $p)
 				foreach ($options as $k => $o)
 					if (strpos($k, $p) !== false)
@@ -298,7 +298,7 @@ class PrestaShopWebservice
 			if (isset($options['id']))
 				$url .= '/'.$options['id'];
 				
-			$params = array('filter', 'display', 'sort', 'limit');
+			$params = array('filter', 'display', 'sort', 'limit', 'id_shop')
 			foreach ($params as $p)
 				foreach ($options as $k => $o)
 					if (strpos($k, $p) !== false)
